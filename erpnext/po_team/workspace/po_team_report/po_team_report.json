@@ -1,0 +1,29 @@
+{
+ "charts": [],
+ "content": "[{\"type\":\"header\",\"data\":{\"text\":\"PO Team Report\"}}]",
+ "creation": "2022-09-12 17:32:39.602917",
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "chart",
+ "idx": 0,
+ "label": "PO Team Report",
+ "links": [],
+ "modified": "2022-09-12 17:36:43.917559",
+ "modified_by": "Administrator",
+ "module": "PO Team",
+ "name": "PO Team Report",
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [
+  {
+   "role": "PO Team Report"
+  }
+ ],
+ "sequence_id": 10.0,
+ "shortcuts": [],
+ "title": "PO Team Report"
+}

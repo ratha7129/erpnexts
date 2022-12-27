@@ -1,0 +1,164 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "allow_rename": 1,
+ "autoname": "field:price_list_name",
+ "creation": "2013-01-25 11:35:09",
+ "description": "Price List Master",
+ "doctype": "DocType",
+ "document_type": "Setup",
+ "engine": "InnoDB",
+ "field_order": [
+  "enabled",
+  "sb_1",
+  "price_list_name",
+  "alias",
+  "currency",
+  "buying",
+  "selling",
+  "allow_in_pos",
+  "pos_allow_birthday_discount",
+  "pos_allow_membership_discount",
+  "price_not_uom_dependent",
+  "column_break_3",
+  "countries"
+ ],
+ "fields": [
+  {
+   "default": "1",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Enabled"
+  },
+  {
+   "fieldname": "sb_1",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "price_list_name",
+   "fieldtype": "Data",
+   "label": "Price List Name",
+   "no_copy": 1,
+   "oldfieldname": "price_list_name",
+   "oldfieldtype": "Data",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Currency",
+   "options": "Currency",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "buying",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Buying"
+  },
+  {
+   "default": "0",
+   "fieldname": "selling",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Selling"
+  },
+  {
+   "default": "0",
+   "fieldname": "price_not_uom_dependent",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Price Not UOM Dependent"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break",
+   "hidden": 1
+  },
+  {
+   "fieldname": "countries",
+   "fieldtype": "Table",
+   "hidden": 1,
+   "label": "Applicable for Countries",
+   "options": "Price List Country"
+  },
+  {
+   "fieldname": "alias",
+   "fieldtype": "Data",
+   "label": "Alias"
+  },
+  {
+   "default": "0",
+   "fieldname": "allow_in_pos",
+   "fieldtype": "Check",
+   "label": "Allow in POS"
+  },
+  {
+   "default": "0",
+   "fieldname": "pos_allow_birthday_discount",
+   "fieldtype": "Check",
+   "label": "POS Allow Birthday Discount"
+  },
+  {
+   "default": "0",
+   "fieldname": "pos_allow_membership_discount",
+   "fieldtype": "Check",
+   "label": "POS Allow Membership Discount"
+  }
+ ],
+ "icon": "fa fa-tags",
+ "idx": 1,
+ "links": [],
+ "max_attachments": 1,
+ "modified": "2022-09-05 16:42:15.614344",
+ "modified_by": "Administrator",
+ "module": "Stock",
+ "name": "Price List",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "read": 1,
+   "report": 1,
+   "role": "Sales User"
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "export": 1,
+   "import": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales Master Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "read": 1,
+   "report": 1,
+   "role": "Purchase User"
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Purchase Master Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Manufacturing User"
+  }
+ ],
+ "search_fields": "currency",
+ "show_name_in_global_search": 1,
+ "sort_field": "modified",
+ "sort_order": "ASC",
+ "states": []
+}

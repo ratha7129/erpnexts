@@ -1,0 +1,46 @@
+{
+ "cards": [
+  {
+   "card": "Annual Sales"
+  },
+  {
+   "card": "Sales Orders to Deliver"
+  },
+  {
+   "card": "Sales Orders to Bill"
+  },
+  {
+   "card": "Active Customers"
+  }
+ ],
+ "charts": [
+  {
+   "chart": "Sales Order Trends",
+   "width": "Full"
+  },
+  {
+   "chart": "Top Customers",
+   "width": "Half"
+  },
+  {
+   "chart": "Sales Order Analysis",
+   "width": "Half"
+  },
+  {
+   "chart": "Item-wise Annual Sales",
+   "width": "Full"
+  }
+ ],
+ "creation": "2022-07-23 10:21:17.103949",
+ "dashboard_name": "Selling",
+ "docstatus": 0,
+ "doctype": "Dashboard",
+ "idx": 0,
+ "is_default": 0,
+ "is_standard": 1,
+ "modified": "2022-09-27 11:16:13.118274",
+ "modified_by": "Administrator",
+ "module": "Selling",
+ "name": "Selling",
+ "owner": "admin@mail.com"
+}

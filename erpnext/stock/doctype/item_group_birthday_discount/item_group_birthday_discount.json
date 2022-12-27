@@ -1,0 +1,39 @@
+{
+ "actions": [],
+ "autoname": "hash",
+ "creation": "2022-07-23 16:29:56.095239",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "branch",
+  "discount"
+ ],
+ "fields": [
+  {
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Branch",
+   "options": "Branch"
+  },
+  {
+   "fieldname": "discount",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Discount (%)"
+  }
+ ],
+ "istable": 1,
+ "links": [],
+ "modified": "2022-07-23 16:29:56.095239",
+ "modified_by": "Administrator",
+ "module": "Stock",
+ "name": "Item Group Birthday Discount",
+ "naming_rule": "Random",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
