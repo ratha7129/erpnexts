@@ -238,7 +238,7 @@ class ReceivablePayableReport(object):
 			row.invoice_grand_total = row.invoiced
 
 			if self.filters.show_paid_invoice:
-				if(row.paid == row.invoiced):
+				if(row.paid == row.invoiced  and row.invoiced != 0 and row.paid != 0):
 					if self.is_invoice(row) and self.filters.based_on_payment_terms:
 						# is an invoice, allocate based on fifo
 						# adds a list `payment_terms` which contains new rows for each term
