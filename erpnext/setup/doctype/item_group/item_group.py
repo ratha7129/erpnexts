@@ -37,7 +37,7 @@ class ItemGroup(NestedSet, WebsiteGenerator):
 		self.make_route()
 		self.validate_item_group_defaults()
 		ECommerceSettings.validate_field_filters(self.filter_fields, enable_field_filters=True)
-		frappe.db.sql("""UPDATE `tabItem` SET change_unit_allow_discount = 1 WHERE item_group = '{}' """.format(self.item_group_name))
+		frappe.db.sql("""UPDATE `tabItem` SET change_unit_allow_discount = '{0}' WHERE item_group = '{1}' """.format(self.change_unit_allow_discount,self.item_group_name))
 
 	
 
