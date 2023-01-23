@@ -124,6 +124,17 @@ class ItemGroup(NestedSet, WebsiteGenerator):
 					str_json += str(MaxBirthdayDiscountByBranchModel(x.branch,x.discount).__dict__)+ ","
 				str_json ="[" + str_json[0:len(str_json)-1] + "]"
 				self.item_group_discount = str_json
+			else:
+				self.item_group_discount = ""
+			if len(self.membership_discount)>0:
+				member_list = self.membership_discount
+				str_json = ""
+				for x in member_list:
+					str_json += str(MembershipDiscount(x.branch,x.membership_type,x.discount_percent).__dict__)+ ","
+				str_json ="[" + str_json[0:len(str_json)-1] + "]"
+				self.membership_discount_data = str_json
+			else:
+				self.membership_discount_data = ""
 
 def get_child_groups_for_website(item_group_name, immediate=False, include_self=False):
 	"""Returns child item groups *excluding* passed group."""
@@ -224,4 +235,10 @@ def get_item_group_defaults(item, company):
 class MaxBirthdayDiscountByBranchModel:
 	def __init__(self, branch,discount):
 		self.branch =branch
+		self.discount =discount
+
+class MembershipDiscount:
+	def __init__(self, branch,membership_type,discount):
+		self.branch =branch
+		self.membership_type =membership_type
 		self.discount =discount
