@@ -147,7 +147,8 @@
   "published_in_website",
   "total_projected_qty",
   "id",
-  "keyword"
+  "keyword",
+  "change_unit_allow_discount"
  ],
  "fields": [
   {
@@ -1120,6 +1121,12 @@
    "fieldtype": "Table",
    "label": "Item Note",
    "options": "Item Note"
+  },
+  {
+   "default": "0",
+   "fieldname": "change_unit_allow_discount",
+   "fieldtype": "Check",
+   "label": "Change Unit Allow Discount"
   }
  ],
  "icon": "fa fa-tag",
