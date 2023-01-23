@@ -285,6 +285,7 @@
   {
    "fieldname": "membership_discount_data",
    "fieldtype": "Long Text",
+   "hidden": 1,
    "label": "Membership Discount Data"
   }
  ],
