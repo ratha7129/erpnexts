@@ -115,8 +115,19 @@ class ItemGroup(NestedSet, WebsiteGenerator):
 		validate_item_default_company_links(self.item_group_defaults)
 
 	def before_save(self):
-			# check if item price has price range 
-			
+			data = [] 
+			duplicate=[]	
+			msg=""
+			for i in self.membership_discount: 
+				if (i.branch+i.membership_type) in data: 
+					duplicate.append(i.idx) 
+				data.append(i.branch+i.membership_type)
+			if duplicate:
+				for a in duplicate:
+					msg = msg + ('Duplicate At Row #' + str(a)) + '<br />'
+				frappe.throw(msg, title=_("Duplicated Row Found"), as_list=True)
+
+			# check if item price has price range
 			if len(self.max_birthday_discount_by_branch)>0:
 				branch_list = self.max_birthday_discount_by_branch
 				str_json = ""
