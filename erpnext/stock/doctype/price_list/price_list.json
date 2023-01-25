@@ -17,6 +17,7 @@
   "buying",
   "selling",
   "allow_in_pos",
+  "allow_discount",
   "pos_allow_birthday_discount",
   "pos_allow_membership_discount",
   "price_not_uom_dependent",
@@ -108,6 +109,12 @@
    "fieldname": "pos_allow_membership_discount",
    "fieldtype": "Check",
    "label": "POS Allow Membership Discount"
+  },
+  {
+   "default": "0",
+   "fieldname": "allow_discount",
+   "fieldtype": "Check",
+   "label": "Allow Discount"
   }
  ],
  "icon": "fa fa-tags",
