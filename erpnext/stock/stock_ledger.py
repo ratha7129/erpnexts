@@ -876,9 +876,11 @@ class update_entries_after(object):
 			stock_queue = FIFOValuation(self.wh_data.stock_queue)
 
 		_prev_qty, prev_stock_value = stock_queue.get_total_stock_and_value()
-
+			
+		data = frappe.db.sql("select actual_qty from `tabBin` where warehouse = '{}' and item_code = '{}' and coalesce(company,'')='{}'".format(sle.warehouse,sle.item_code,sle.company),as_dict=1)
+		current_qty = data[0]["actual_qty"]
 		if actual_qty > 0:
-			stock_queue.add_stock(qty=actual_qty, rate=incoming_rate)
+			stock_queue.add_stock(qty=actual_qty, rate=incoming_rate, current_qty=current_qty)
 		else:
 
 			def rate_generator() -> float:
