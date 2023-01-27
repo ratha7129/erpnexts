@@ -174,7 +174,7 @@ class LIFOValuation(BinWiseValuation):
 		"""Get current state of stack."""
 		return self.stack
 
-	def add_stock(self, qty: float, rate: float, current_qty: float) -> None:
+	def add_stock(self, qty: float, rate: float, current_qty: float, has_current_qty: int) -> None:
 		"""Update lifo stack with new stock.
 
 		args:
@@ -188,7 +188,8 @@ class LIFOValuation(BinWiseValuation):
 
 		# last row has the same rate, merge new bin.
 		if self.stack[-1][RATE] == rate:
-			self.queue[-1][QTY] = current_qty
+			if has_current_qty == 1:
+					self.queue[-1][QTY] = current_qty
 			self.stack[-1][QTY] += qty
 		else:
 			# Item has a positive balance qty, add new entry
