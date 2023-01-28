@@ -70,7 +70,7 @@ class FIFOValuation(BinWiseValuation):
 		"""Get current state of queue."""
 		return self.queue
 
-	def add_stock(self, qty: float, rate: float) -> None:
+	def add_stock(self, qty: float, rate: float, current_qty: float, has_current_qty: int) -> None:
 		"""Update fifo queue with new stock.
 
 		args:
@@ -82,6 +82,8 @@ class FIFOValuation(BinWiseValuation):
 
 		# last row has the same rate, merge new bin.
 		if self.queue[-1][RATE] == rate:
+			if has_current_qty == 1:
+					self.queue[-1][QTY] = current_qty
 			self.queue[-1][QTY] += qty
 		else:
 			# Item has a positive balance qty, add new entry
