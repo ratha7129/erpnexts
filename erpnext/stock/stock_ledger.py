@@ -885,7 +885,7 @@ class update_entries_after(object):
 			if current_qty:
 				stock_queue.add_stock(qty=actual_qty, rate=incoming_rate, current_qty=current_qty, has_current_qty=1)
 			else:
-				stock_queue.add_stock(qty=actual_qty, rate=incoming_rate, current_qty=current_qty, has_current_qty=0)
+				stock_queue.add_stock(qty=actual_qty, rate=incoming_rate, current_qty=0, has_current_qty=0)
 		else:
 
 			def rate_generator() -> float:
