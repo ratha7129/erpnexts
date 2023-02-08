@@ -1184,13 +1184,21 @@ class Item(Document):
 				):
 					return linked_doc
 
-			elif linked_doc := frappe.db.get_value(
-				doctype,
-				filters,
-				["parent as docname", "parenttype as doctype"],
-				as_dict=True,
-			):
-				return linked_doc
+			else :
+				if doctype == "Product Bundle":
+					linked_doc = frappe.db.get_value(
+					doctype,
+					filters,
+					["new_item_code as docname", "new_item_code as doctype"],
+					as_dict=True)
+					return linked_doc
+				else :
+					linked_doc = frappe.db.get_value(
+					doctype,
+					filters,
+					["parent as docname", "parenttype as doctype"],
+					as_dict=True)
+					return linked_doc
 
 	def validate_auto_reorder_enabled_in_stock_settings(self):
 		if self.reorder_levels:
