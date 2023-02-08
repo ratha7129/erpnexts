@@ -160,14 +160,12 @@ class POSInvoiceMergeLog(Document):
 						i.net_amount = i.amount
 						i.base_amount = i.base_amount + item.base_net_amount
 						i.base_net_amount = i.base_amount
-						i.allow_zero_valuation_rate = 1
 
 				if not found:
 					item.rate = item.net_rate
 					item.amount = item.net_amount
 					item.base_amount = item.base_net_amount
 					item.price_list_rate = 0
-					item.allow_zero_valuation_rate = 1
 					si_item = map_child_doc(item, invoice, {"doctype": "Sales Invoice Item"})
 					items.append(si_item)
 

@@ -972,7 +972,7 @@ class update_entries_after(object):
 			sle.warehouse,
 			sle.voucher_type,
 			sle.voucher_no,
-			self.allow_zero_rate,
+			True,
 			currency=erpnext.get_company_currency(sle.company),
 			company=sle.company,
 			batch_no=sle.batch_no,
