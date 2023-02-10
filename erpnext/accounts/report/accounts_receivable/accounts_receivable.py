@@ -236,51 +236,23 @@ class ReceivablePayableReport(object):
 			)
 
 			row.invoice_grand_total = row.invoiced
+		if self.is_invoice(row) and self.filters.based_on_payment_terms:
+				# is an invoice, allocate based on fifo
+				# adds a list `payment_terms` which contains new rows for each term
+				self.allocate_outstanding_based_on_payment_terms(row)
 
-			if self.filters.show_paid_invoice:
-				if(row.paid == row.invoiced  and row.invoiced != 0 and row.paid != 0):
-					if self.is_invoice(row) and self.filters.based_on_payment_terms:
-						# is an invoice, allocate based on fifo
-						# adds a list `payment_terms` which contains new rows for each term
-						self.allocate_outstanding_based_on_payment_terms(row)
+				if row.payment_terms:
+					# make separate rows for each payment term
+					for d in row.payment_terms:
+						if d.outstanding > 0:
+							self.append_row(d)
 
-						if row.payment_terms:
-							# make separate rows for each payment term
-							for d in row.payment_terms:
-								if d.outstanding > 0:
-									self.append_row(d)
-
-							# if there is overpayment, add another row
-							self.allocate_extra_payments_or_credits(row)
-						else:
-							self.append_row(row)
-					else:
-						self.append_row(row)
-
+					# if there is overpayment, add another row
+					self.allocate_extra_payments_or_credits(row)
+				else:
+					self.append_row(row)
 			else:
-				if (abs(row.outstanding) > 1.0 / 10**self.currency_precision) and (
-					abs(row.outstanding_in_account_currency) > 1.0 / 10**self.currency_precision
-				):
-
-					# non-zero oustanding, we must consider this row
-
-					if self.is_invoice(row) and self.filters.based_on_payment_terms:
-						# is an invoice, allocate based on fifo
-						# adds a list `payment_terms` which contains new rows for each term
-						self.allocate_outstanding_based_on_payment_terms(row)
-
-						if row.payment_terms:
-							# make separate rows for each payment term
-							for d in row.payment_terms:
-								if d.outstanding > 0:
-									self.append_row(d)
-
-							# if there is overpayment, add another row
-							self.allocate_extra_payments_or_credits(row)
-						else:
-							self.append_row(row)
-					else:
-						self.append_row(row)
+				self.append_row(row)
 
 		if self.filters.get("group_by_party"):
 			self.append_subtotal_row(self.previous_party)
