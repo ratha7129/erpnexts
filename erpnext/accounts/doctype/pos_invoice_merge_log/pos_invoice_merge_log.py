@@ -66,7 +66,7 @@ class POSInvoiceMergeLog(Document):
 
 	def on_submit(self):
 		pos_invoice_docs = [
-			frappe.get_cached_doc("POS Invoice", d.pos_invoice) for d in self.pos_invoices
+			frappe.get_doc("POS Invoice", d.pos_invoice) for d in self.pos_invoices
 		]
 
 		returns = [d for d in pos_invoice_docs if d.get("is_return") == 1]
@@ -85,7 +85,7 @@ class POSInvoiceMergeLog(Document):
 
 	def on_cancel(self):
 		pos_invoice_docs = [
-			frappe.get_cached_doc("POS Invoice", d.pos_invoice) for d in self.pos_invoices
+			frappe.get_doc("POS Invoice", d.pos_invoice) for d in self.pos_invoices
 		]
 
 		self.update_pos_invoices(pos_invoice_docs)
