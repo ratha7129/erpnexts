@@ -362,7 +362,7 @@ def split_invoices(invoices):
 	_invoices = []
 	special_invoices = []
 	pos_return_docs = [
-		frappe.get_cached_doc("POS Invoice", d.pos_invoice)
+		frappe.get_doc("POS Invoice", d.pos_invoice)
 		for d in invoices
 		if d.is_return and d.return_against
 	]
