@@ -10,7 +10,8 @@
  "field_order": [
   "branch_code",
   "branch",
-  "document_naming_code"
+  "document_naming_code",
+  "disable_from_sync"
  ],
  "fields": [
   {
@@ -35,12 +36,18 @@
    "fieldname": "document_naming_code",
    "fieldtype": "Data",
    "label": "Document Naming Code"
+  },
+  {
+   "default": "0",
+   "fieldname": "disable_from_sync",
+   "fieldtype": "Check",
+   "label": "Disable From Sync"
   }
  ],
  "icon": "fa fa-code-fork",
  "idx": 1,
  "links": [],
- "modified": "2022-08-09 12:23:47.028856",
+ "modified": "2023-03-29 10:10:50.835243",
  "modified_by": "Administrator",
  "module": "Setup",
  "name": "Branch",
