@@ -7,6 +7,7 @@ from frappe import _, msgprint, throw
 from frappe.contacts.doctype.address.address import get_address_display
 from frappe.model.mapper import get_mapped_doc
 from frappe.model.utils import get_fetch_values
+from frappe.model.naming import make_autoname
 from frappe.utils import (
 	add_days,
 	add_months,
@@ -245,6 +246,8 @@ class SalesInvoice(SellingController):
 
 	def before_save(self):
 		set_account_for_mode_of_payment(self)
+		if not self.pos_profile and self.is_new():
+			self.document_number = make_autoname(self.document_number_prefix + ".#####", "", self)
 
 	def on_submit(self):
 		self.validate_pos_paid_amount()

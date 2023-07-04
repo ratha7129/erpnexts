@@ -196,7 +196,9 @@
   "column_break_140",
   "auto_repeat",
   "update_auto_repeat_reference",
-  "against_income_account"
+  "against_income_account",
+  "document_number_prefix",
+  "document_number"
  ],
  "fields": [
   {
@@ -2049,6 +2051,19 @@
    "fieldname": "membership",
    "fieldtype": "Data",
    "label": "Membership"
+  },
+  {
+   "default": "SO-LA-WS-.YYYY.-",
+   "fieldname": "document_number_prefix",
+   "fieldtype": "Select",
+   "label": "Document Number Prefix",
+   "options": "SO-LA-WS-.YYYY.-"
+  },
+  {
+   "fieldname": "document_number",
+   "fieldtype": "Data",
+   "label": "Document Number",
+   "read_only": 1
   }
  ],
  "icon": "fa fa-file-text",
