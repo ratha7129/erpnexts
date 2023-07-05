@@ -882,7 +882,7 @@ class update_entries_after(object):
 		if data:
 			current_qty = data[0]["actual_qty"]
 		if actual_qty > 0:
-			if current_qty:
+			if current_qty and sle.voucher_type != "Sales Invoice":
 				stock_queue.add_stock(qty=actual_qty, rate=incoming_rate, current_qty=current_qty, has_current_qty=1)
 			else:
 				stock_queue.add_stock(qty=actual_qty, rate=incoming_rate, current_qty=0, has_current_qty=0)
