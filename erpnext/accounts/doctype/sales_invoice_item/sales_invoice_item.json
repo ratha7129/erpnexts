@@ -106,7 +106,8 @@
   "supplier_name",
   "supplier_group",
   "total_transaction",
-  "page_break"
+  "page_break",
+  "item_tax"
  ],
  "fields": [
   {
@@ -876,6 +877,12 @@
    "fieldtype": "Float",
    "hidden": 1,
    "label": "Total Transaction"
+  },
+  {
+   "fieldname": "item_tax",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "Item Tax"
   }
  ],
  "idx": 1,
