@@ -93,7 +93,7 @@ class SalesInvoice(SellingController):
 	
 	def on_change(self):
 		total_tax_amount = self.total_taxes_and_charges
-		sub_total = self.sub_total
+		sub_total = self.net_total
 		tax_percent = total_tax_amount/sub_total
 		sql = "update `tabSales Invoice Item` set item_tax = net_amount*{0} where parent='{1}'".format(tax_percent,self.name)
 		frappe.db.sql(sql)
