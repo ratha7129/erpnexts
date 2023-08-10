@@ -89,15 +89,7 @@ class SalesInvoice(SellingController):
 			self.indicator_color = "gray"
 		else:
 			self.indicator_color = "green"
-			self.indicator_title = _("Paid")
-	
-	def on_change(self):
-		total_tax_amount = self.total_taxes_and_charges
-		sub_total = self.net_total
-		tax_percent = total_tax_amount/sub_total
-		sql = "update `tabSales Invoice Item` set item_tax = net_amount*{0} where parent='{1}'".format(tax_percent,self.name)
-		frappe.db.sql(sql)
-		frappe.db.commit()	
+			self.indicator_title = _("Paid")	
 
 	def validate(self):
 		super(SalesInvoice, self).validate()
@@ -110,7 +102,7 @@ class SalesInvoice(SellingController):
 			self.so_dn_required()
 
 		self.set_tax_withholding()
-
+		frappe.enqueue('erpnext.accounts.doctype.sales_invoice.sales_invoice.update_item_tax', data=self)
 		self.validate_proj_cust()
 		self.validate_pos_return()
 		self.validate_with_previous_doc()
@@ -2663,6 +2655,12 @@ def update_total_cost(name):
 		"""
 	)
 
-
+def update_item_tax(data):
+	total_tax_amount = data.total_taxes_and_charges
+	sub_total = data.net_total
+	tax_percent = total_tax_amount/sub_total
+	sql = "update `tabSales Invoice Item` set item_tax = net_amount*{0} where parent='{1}'".format(tax_percent,data.name)
+	frappe.db.sql(sql)
+	frappe.db.commit()
 
 
