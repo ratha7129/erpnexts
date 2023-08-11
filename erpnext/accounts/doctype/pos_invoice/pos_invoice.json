@@ -210,7 +210,10 @@
   "sub_total",
   "total_item_discount",
   "total_poyalty_point_amount",
-  "pos_price_list"
+  "pos_price_list",
+  "tax_rate",
+  "tax_name",
+  "total_tax_amount"
  ],
  "fields": [
   {
@@ -1743,12 +1746,30 @@
    "fieldname": "pos_price_list",
    "fieldtype": "Data",
    "label": "POS Price List"
+  },
+  {
+   "fieldname": "tax_rate",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "Tax Rate"
+  },
+  {
+   "fieldname": "tax_name",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Tax Name"
+  },
+  {
+   "fieldname": "total_tax_amount",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "Total Tax Amount"
   }
  ],
  "icon": "fa fa-file-text",
  "is_submittable": 1,
  "links": [],
- "modified": "2022-10-06 16:05:14.024137",
+ "modified": "2023-08-11 09:34:27.539149",
  "modified_by": "Administrator",
  "module": "Accounts",
  "name": "POS Invoice",

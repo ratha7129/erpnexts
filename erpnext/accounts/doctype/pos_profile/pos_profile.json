@@ -85,7 +85,13 @@
   "apply_discount_on",
   "accounting_dimensions_section",
   "cost_center",
-  "dimension_col_break"
+  "dimension_col_break",
+  "sales_taxes_and_charges_section",
+  "tax_name",
+  "account_head_name",
+  "column_break_91",
+  "tax_rate",
+  "description"
  ],
  "fields": [
   {
@@ -580,6 +586,39 @@
    "fieldtype": "Select",
    "label": "Payment Layout",
    "options": "Simple\nTouch Friendly"
+  },
+  {
+   "fieldname": "sales_taxes_and_charges_section",
+   "fieldtype": "Section Break",
+   "label": "Sales Taxes and Charges"
+  },
+  {
+   "fieldname": "tax_name",
+   "fieldtype": "Link",
+   "label": "Sales Taxes Name",
+   "options": "POS Tax Charge"
+  },
+  {
+   "fetch_from": "tax_name.rate",
+   "fieldname": "tax_rate",
+   "fieldtype": "Float",
+   "label": "Sale Tax Rate"
+  },
+  {
+   "fieldname": "column_break_91",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "tax_name.description",
+   "fieldname": "description",
+   "fieldtype": "Data",
+   "label": "Description"
+  },
+  {
+   "fetch_from": "tax_name.account_head",
+   "fieldname": "account_head_name",
+   "fieldtype": "Data",
+   "label": "Account Head Name"
   }
  ],
  "icon": "icon-cog",
@@ -607,7 +646,7 @@
    "link_fieldname": "pos_profile"
   }
  ],
- "modified": "2022-10-02 12:27:27.974689",
+ "modified": "2023-08-10 17:17:13.165965",
  "modified_by": "Administrator",
  "module": "Accounts",
  "name": "POS Profile",
