@@ -2053,11 +2053,11 @@
    "label": "Membership"
   },
   {
-   "default": "SO-LA-WS-.YYYY.-",
+   "default": "TI.####",
    "fieldname": "document_number_prefix",
    "fieldtype": "Select",
    "label": "Document Number Prefix",
-   "options": "SO-LA-WS-.YYYY.-"
+   "options": "TI.####"
   },
   {
    "fieldname": "document_number",

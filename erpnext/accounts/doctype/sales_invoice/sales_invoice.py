@@ -246,8 +246,11 @@ class SalesInvoice(SellingController):
 
 	def before_save(self):
 		set_account_for_mode_of_payment(self)
-		if not self.pos_profile and self.is_new():
-			self.document_number = make_autoname(self.document_number_prefix + ".#####", "", self)
+
+	def after_insert(self):
+		if not self.pos_profile:
+			document_number = make_autoname(self.document_number_prefix + ".####", "", self)
+			frappe.db.set_value('Sales Invoice', self.name, 'document_number', document_number, update_modified=False)
 
 	def on_submit(self):
 		self.validate_pos_paid_amount()
