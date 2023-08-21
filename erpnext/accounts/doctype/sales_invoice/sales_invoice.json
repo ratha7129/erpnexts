@@ -9,6 +9,7 @@
   "customer_section",
   "title",
   "naming_series",
+  "document_number",
   "customer",
   "customer_name",
   "membership",
@@ -197,8 +198,7 @@
   "auto_repeat",
   "update_auto_repeat_reference",
   "against_income_account",
-  "document_number_prefix",
-  "document_number"
+  "document_number_prefix"
  ],
  "fields": [
   {
@@ -2052,7 +2052,7 @@
    "fieldtype": "Data",
    "label": "Membership"
   },
-  {
+   {
    "default": "TI.####",
    "fieldname": "document_number_prefix",
    "fieldtype": "Select",
@@ -2060,10 +2060,10 @@
    "options": "TI.####"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "document_number",
    "fieldtype": "Data",
-   "label": "Document Number",
-   "read_only": 1
+   "label": "Document Number"
   }
  ],
  "icon": "fa fa-file-text",
