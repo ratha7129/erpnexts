@@ -2029,6 +2029,7 @@
    "label": "Is Cash or Non Trade Discount"
   },
   {
+   "allow_on_submit": 1,
    "fetch_from": "pos_profile.branch",
    "fieldname": "branch",
    "fieldtype": "Link",
