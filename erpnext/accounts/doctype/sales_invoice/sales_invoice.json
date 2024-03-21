@@ -2037,6 +2037,7 @@
    "options": "Branch"
   },
   {
+   "allow_on_submit": 1,
    "fetch_from": "branch.document_naming_code",
    "fieldname": "document_naming_code",
    "fieldtype": "Data",
