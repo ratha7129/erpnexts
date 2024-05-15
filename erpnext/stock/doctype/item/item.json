@@ -36,6 +36,7 @@
   "over_delivery_receipt_allowance",
   "over_billing_allowance",
   "brand",
+  "item_shelf",
   "image",
   "note",
   "item_note",
@@ -1127,6 +1128,12 @@
    "fieldname": "change_unit_allow_discount",
    "fieldtype": "Check",
    "label": "Change Unit Allow Discount"
+  },
+  {
+   "fieldname": "item_shelf",
+   "fieldtype": "Link",
+   "label": "Item Shelf",
+   "options": "Item Shelf"
   }
  ],
  "icon": "fa fa-tag",
