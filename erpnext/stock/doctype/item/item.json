@@ -36,7 +36,9 @@
   "over_delivery_receipt_allowance",
   "over_billing_allowance",
   "brand",
-  "item_shelf",
+  "shelf_row",
+  "shelf_column",
+  "shelf_level",
   "image",
   "note",
   "item_note",
@@ -1130,9 +1132,22 @@
    "label": "Change Unit Allow Discount"
   },
   {
-   "fieldname": "item_shelf",
-   "fieldtype": "Data",
-   "label": "Item Shelf"
+   "fieldname": "shelf_row",
+   "fieldtype": "Link",
+   "label": "Shelf Row",
+   "options": "Item Shelf Row"
+  },
+  {
+   "fieldname": "shelf_column",
+   "fieldtype": "Link",
+   "label": "Shelf Column",
+   "options": "Item Shelf Column"
+  },
+  {
+   "fieldname": "shelf_level",
+   "fieldtype": "Link",
+   "label": "Shelf Level",
+   "options": "Item Shelf Level"
   }
  ],
  "icon": "fa fa-tag",
