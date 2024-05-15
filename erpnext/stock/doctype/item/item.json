@@ -1131,9 +1131,8 @@
   },
   {
    "fieldname": "item_shelf",
-   "fieldtype": "Link",
-   "label": "Item Shelf",
-   "options": "Item Shelf"
+   "fieldtype": "Data",
+   "label": "Item Shelf"
   }
  ],
  "icon": "fa fa-tag",
