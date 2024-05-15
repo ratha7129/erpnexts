@@ -1,6 +1,6 @@
 {
  "actions": [],
- "autoname": "autoincrement",
+ "autoname": "field:row_name",
  "creation": "2024-05-15 15:30:54.026411",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -12,16 +12,17 @@
   {
    "fieldname": "row_name",
    "fieldtype": "Data",
-   "label": "Row Name"
+   "label": "Row Name",
+   "unique": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-05-15 15:30:54.026411",
+ "modified": "2024-05-15 16:50:57.966331",
  "modified_by": "Administrator",
  "module": "Stock",
  "name": "Item Shelf Row",
- "naming_rule": "Autoincrement",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {

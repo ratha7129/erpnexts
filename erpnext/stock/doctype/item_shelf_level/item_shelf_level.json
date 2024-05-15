@@ -1,6 +1,6 @@
 {
  "actions": [],
- "autoname": "autoincrement",
+ "autoname": "field:level_name",
  "creation": "2024-05-15 15:31:58.325596",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -12,16 +12,17 @@
   {
    "fieldname": "level_name",
    "fieldtype": "Data",
-   "label": "Level Name"
+   "label": "Level Name",
+   "unique": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-05-15 15:31:58.325596",
+ "modified": "2024-05-15 16:51:14.935282",
  "modified_by": "Administrator",
  "module": "Stock",
  "name": "Item Shelf Level",
- "naming_rule": "Autoincrement",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
