@@ -768,6 +768,9 @@ def get_difference_account(purpose, company):
 
 	return account
 
+@frappe.whitelist()
+def get_pending_stock_count():
+	return frappe.db.get_list("Stock Reconciliation",fields=["name","set_warehouse"],filters={"docstatus":0})
 
 @frappe.whitelist()
 def get_item_qty_from_warehouse(param):
