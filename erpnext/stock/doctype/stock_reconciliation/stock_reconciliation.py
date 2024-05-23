@@ -767,3 +767,55 @@ def get_difference_account(purpose, company):
 		)
 
 	return account
+
+
+@frappe.whitelist()
+def get_item_qty_from_warehouse(param):
+	import json
+	param = json.loads(param)
+	param['warehouse']
+	param['item_code']
+
+	if frappe.db.exists("Bin", {"warehouse": param['warehouse'],"item_code": param['item_code']}):
+
+		data = frappe.db.get_value("Bin",{"warehouse": param['warehouse'],"item_code": param['item_code']},['stock_uom',"item_code",'actual_qty','item_name'],as_dict=1)
+		sql = "select qty from `tabStock Reconciliation Item` where parent = '{0}' and item_code = '{1}'".format(param['name'],param['item_code'])
+
+		old_qty = frappe.db.sql(sql,as_dict=1)
+		if old_qty:
+			data["qty"] = old_qty[0]['qty'] or 0
+		return data
+	else:
+		data = frappe.db.get_value("Item",param['item_code'],['stock_uom','item_name','item_code'],as_dict=1)
+		
+		
+		if data:
+			data = {"item_code":data.item_code,"stock_uom":data.sotkc_uom,"item_name":data.item_name,"actual_qty":0,"qty":0}
+			sql = "select qty from `tabStock Reconciliation Item` where parent = '{0}' and item_code = '{1}'".format(param['name'],param['item_code'])
+		
+			old_qty = frappe.db.sql(sql,as_dict=1)
+			if old_qty:
+				data["qty"] = old_qty[0]['qty'] or 0
+
+			return data
+	frappe.throw('Product Code {} Not  Exist!'.format(param['item_code']))
+
+
+@frappe.whitelist()
+def save_stock_reconcil(param):
+	import json
+	param = json.loads(param)
+
+	doc = frappe.get_doc("Stock Reconciliation",param['name'])
+	for d in param['items']:
+		child_doc = [x for x in doc.items if x.item_code == d['item_code']]
+		if child_doc:
+			child_doc[0].qty = d['qty']
+		else:
+			doc.append("items",{
+				"item_code":d['item_code'],
+				"qty":d['qty'],
+				"warehouse":param['set_warehouse']
+
+			})
+	doc.save(ignore_permissions=True)
