@@ -770,6 +770,15 @@ def get_difference_account(purpose, company):
 
 
 @frappe.whitelist()
+def get_pending_stock_count():
+	
+	data = frappe.db.sql("select name,set_warehouse from `tabStock Reconciliation` where docstatus = 0",as_dict = 1)
+	for d in data :
+		count = frappe.db.sql("select count(name) total_item from `tabStock Reconciliation Item` where parent = '{}'".format(d['name']),as_dict=1)
+		d['total_item'] = count[0]['total_item'] or 0
+	return data
+
+@frappe.whitelist()
 def get_item_qty_from_warehouse(param):
 	import json
 	param = json.loads(param)
