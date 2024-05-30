@@ -2,7 +2,6 @@ import frappe
 from frappe.utils import date_diff,today 
 from frappe.utils.data import strip
 from frappe import _
-from py_linq import Enumerable
 
 def execute(filters=None): 
 	#run this to update parent_product_group in table sales invoice item
