@@ -770,10 +770,6 @@ def get_difference_account(purpose, company):
 
 @frappe.whitelist()
 def get_pending_stock_count():
-	return frappe.db.get_list("Stock Reconciliation",fields=["name","set_warehouse"],filters={"docstatus":0})
-
-@frappe.whitelist()
-def get_pending_stock_count():
 	
 	data = frappe.db.sql("select name,set_warehouse from `tabStock Reconciliation` where docstatus = 0",as_dict = 1)
 	for d in data :
@@ -812,6 +808,35 @@ def get_item_qty_from_warehouse(param):
 			return data
 	frappe.throw('Product Code {} Not  Exist!'.format(param['item_code']))
 
+@frappe.whitelist()
+def get_item_qty_from_warehouse_contain_code(param):
+	import json
+	param = json.loads(param)
+	data =   frappe.db.get_list("Bin",fields=['stock_uom',"item_code",'actual_qty','item_name'],filters=[["Bin","warehouse","=",param["warehouse"]],["Bin","item_code","like","%{}%".format(param["item_code"])]], page_length=20)
+
+	if data:
+
+		
+		sql = "select item_code, sum(qty) as qty from `tabStock Reconciliation Item` where parent = '{0}' and item_code in %(item_codes)s group by item_code".format(param['name'])
+
+		old_qty_data = frappe.db.sql(sql,{"item_codes":[d.item_code for d in data ]},as_dict=1)
+		for p in data:
+			p.qty = sum([d["qty"] for d in old_qty_data if d["item_code"]==p.item_code])
+		return data
+	else:
+		# tget data from tabitem
+		sql="select stock_uom, item_name,item_code,0 as qty from `tabItem` where item_code like '%{}%' limit 20".format(param["item_code"])
+		data = frappe.db.sql(sql,as_dict=1)
+		if data:
+			sql = "select item_code, sum(qty) as qty from `tabStock Reconciliation Item` where parent = '{0}' and item_code in %(item_codes)s group by item_code".format(param['name'])
+
+			old_qty_data = frappe.db.sql(sql,{"item_codes":[d["item_code"] for d in data ]},as_dict=1)
+			for p in data:
+				p["qty"] = sum([d["qty"] for d in old_qty_data if d["item_code"]==p["item_code"]])
+			return data
+		 
+
+	frappe.throw('Product Code {} Not  Exist!'.format(param['item_code']))
 
 @frappe.whitelist()
 def save_stock_reconcil(param):
@@ -824,10 +849,26 @@ def save_stock_reconcil(param):
 		if child_doc:
 			child_doc[0].qty = d['qty']
 		else:
+			user  = frappe.db.get_value("User",frappe.session.user,['email','full_name'],as_dict=1)
 			doc.append("items",{
 				"item_code":d['item_code'],
 				"qty":d['qty'],
-				"warehouse":param['set_warehouse']
+				"warehouse":param['set_warehouse'],
+				"counted_user":frappe.session.user,
+				"counted_by":user.full_name
 
 			})
 	doc.save(ignore_permissions=True)
+
+@frappe.whitelist()
+def get_stock_reconcil_by_user(name):
+	item_list = frappe.get_all("Stock Reconciliation Item",filters={'parent':name,'counted_user':frappe.session.user},fields=['name','item_code','item_name','qty','current_qty','quantity_difference','counted_by'])
+	return item_list
+
+@frappe.whitelist(allow_guest=True)
+def get_valuation_from_item(item_code):
+	doc = frappe.db.sql("select valuation_rate from `tabItem` where name = '{0}'".format(item_code),as_dict=1)
+	if doc:
+		return doc[0].valuation_rate or 0
+	else:
+		return 0
