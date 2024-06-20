@@ -78,6 +78,24 @@ class StockReconciliation(StockController):
 				and (item.valuation_rate is None or item.valuation_rate == item_dict.get("rate"))
 				and (not item.serial_no or (item.serial_no == item_dict.get("serial_nos")))
 			):
+				doc = frappe.new_doc("None Change Stock Reconciliation Item")
+				doc.stock_reconciliation = item.parent
+				doc.item_code = item.item_code
+				doc.item_name = item.item_name
+				doc.warehouse = item.warehouse
+				doc.qty = item.qty
+				doc.valuation_rate = item.valuation_rate
+				doc.amount = item.amount
+				doc.allow_zero_valuation_rate = item.allow_zero_valuation_rate
+				doc.batch_no = item.batch_no
+				doc.serial_no = item.serial_no
+				doc.current_qty = item.current_qty
+				doc.current_amount = item.current_amount
+				doc.current_valuation_rate = item.current_valuation_rate
+				doc.current_serial_no = item.current_serial_no
+				doc.quantity_difference = item.quantity_difference
+				doc.amount_difference = item.amount_difference
+				doc.insert()
 				return False
 			else:
 				# set default as current rates
@@ -104,10 +122,7 @@ class StockReconciliation(StockController):
 		items = list(filter(lambda d: _changed(d), self.items))
 
 		if not items:
-			frappe.throw(
-				_("None of the items have any change in quantity or value."),
-				EmptyStockReconciliationItemsError,
-			)
+			pass
 
 		elif len(items) != len(self.items):
 			self.items = items
@@ -156,7 +171,7 @@ class StockReconciliation(StockController):
 			if flt(row.valuation_rate) < 0:
 				self.validation_messages.append(_get_msg(row_num, _("Negative Valuation Rate is not allowed")))
 
-			if row.qty and row.valuation_rate in ["", None]:
+			if row.qty and row.valuation_rate in ["", None,0]:
 				row.valuation_rate = get_stock_balance(
 					row.item_code, row.warehouse, self.posting_date, self.posting_time, with_valuation_rate=True
 				)[1]
