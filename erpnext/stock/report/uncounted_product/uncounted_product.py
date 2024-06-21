@@ -19,9 +19,13 @@ def get_columns(filters):
 
 		return [
 			{"label":"Item", "fieldname":"item_code","fieldtype":"Link","options":"Item","align":"left","sql":"item_code","width":"250"},
-			{"label":"Item Name", "fieldname":"item_name","fieldtype":"Data","align":"left"},
-			{"label":"Actual Qty", "fieldname":"actual_qty","fieldtype":"Int"},
-			{"label":"UOM", "fieldname":"stock_uom","fieldtype":"Data","width":"100"}
+			{"label":"Item Name", "fieldname":"item_name","fieldtype":"Data","align":"left","width":"150"},
+			{"label":"BOH", "fieldname":"actual_qty","fieldtype":"Int","width":"100"},
+			{"label":"UOM", "fieldname":"stock_uom","fieldtype":"Data","width":"150"},
+			{"label":"Cost", "fieldname":"cost","fieldtype":"Currency","width":"150"},
+			{"label":"Wholesale Price", "fieldname":"wholesale_price","fieldtype":"Currency","width":"150"},
+			{"label":"Price", "fieldname":"standard_rate","fieldtype":"Currency","width":"150"},
+			{"label":"Disc.", "fieldname":"max_discount","fieldtype":"Currency","width":"150"}
 		]
 	
 
@@ -39,20 +43,23 @@ def get_data(filters):
 	if len(category) > 0:
 		category = [c['item_group'] for c in category]
 	#get Product in category
-	item_sql = """
+		item_sql = """
 		select 
 		item.item_code,
 		item.item_name,
 		coalesce(bin.actual_qty,0) actual_qty,
-		coalesce(bin.stock_uom,item.stock_uom) stock_uom
+		coalesce(bin.stock_uom,item.stock_uom) stock_uom,
+		coalesce(bin.valuation_rate,item.valuation_rate) cost,
+		item.standard_rate,
+		item.wholesale_price,
+		item.max_discount
 		from `tabItem` item 
 		left join `tabBin` bin on item.name = bin.item_code
 
-		where item.item_group in {} and item.name not in (select item_code from `tabStock Reconciliation Item`)
+		where item.item_group in %(category)s and item.name not in (select item_code from `tabStock Reconciliation Item`)
 		
-	""".format(tuple(category))
-	# frappe.throw(item_sql)
-	item = frappe.db.sql(item_sql,as_dict=1)
+	"""
+	item = frappe.db.sql(item_sql,{"category":category},as_dict=1)
 	
 	return item
 
