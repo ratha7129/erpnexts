@@ -20,6 +20,9 @@ def get_columns(filters):
 		return [
 			{"label":"Item", "fieldname":"item_code","fieldtype":"Link","options":"Item","align":"left","sql":"item_code","width":"250"},
 			{"label":"Item Name", "fieldname":"item_name","fieldtype":"Data","align":"left","width":"150"},
+			{"label":"Supplier", "fieldname":"supplier_name","fieldtype":"Data","align":"left","width":"150"},
+			{"label":"Min Quantity", "fieldname":"min_quantity","fieldtype":"Data","align":"left","width":"60"},
+			{"label":"Max Quantity", "fieldname":"max_quantity","fieldtype":"Data","align":"left","width":"60"},
 			{"label":"BOH", "fieldname":"actual_qty","fieldtype":"Int","width":"100"},
 			{"label":"UOM", "fieldname":"stock_uom","fieldtype":"Data","width":"150"},
 			{"label":"Cost", "fieldname":"cost","fieldtype":"Currency","width":"150"},
@@ -57,6 +60,8 @@ def get_data(filters):
 			item.item_code,
 			item.item_name,
 			item.supplier_name,
+			item.max_quantity,
+			item.min_quantity,
 			coalesce(bin.actual_qty,0) actual_qty,
 			coalesce(bin.stock_uom,item.stock_uom) stock_uom,
 			coalesce(bin.valuation_rate,item.valuation_rate) cost,
@@ -75,6 +80,8 @@ def get_data(filters):
 				a.item_code,
 				a.item_name,
 				b.supplier_name,
+				b.max_quantity,
+				b.min_quantity,
 				a.current_qty,
 				b.stock_uom,
 				a.valuation_rate cost,
@@ -96,6 +103,7 @@ def get_data(filters):
 				quantity_difference,
 				valuation_rate
 			from `tabStock Reconciliation Item`
+			where parent = %(name)s
 		"""
 		stock_reconcill_item = frappe.db.sql(item_sql,{"name":filters.name},as_dict=1)
 	
