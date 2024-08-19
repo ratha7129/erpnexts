@@ -193,6 +193,20 @@ def tax_account_query(doctype, txt, searchfield, start, page_len, filters):
 
 	return tax_accounts
 
+@frappe.whitelist()
+def update_current_quantity(name):
+	sql = """
+		UPDATE `tabStock Reconciliation Item` r
+		SET r.current_qty = (
+			SELECT b.actual_qty 
+			FROM `tabBin` b 
+			WHERE b.item_code = r.item_code AND b.warehouse = r.warehouse
+		) 
+		WHERE r.parent = %s
+	"""
+	frappe.db.sql(sql, name)
+	frappe.db.commit()
+	return "Done"
 
 @frappe.whitelist()
 @frappe.validate_and_sanitize_search_inputs
