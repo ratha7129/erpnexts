@@ -69,6 +69,32 @@ frappe.ui.form.on("Stock Reconciliation", {
 		}
 	},
 
+	refresh: function (frm) {
+		if (frm.doc.docstatus < 1) {
+		frm.add_custom_button(__("Update BOH"), function () {
+			frappe.confirm(
+				'Are you sure you want to update BOH?',
+				function () {
+					frappe
+						.call("erpnext.controllers.queries.update_current_quantity", {
+							name: frm.doc.name
+						})
+						.then((result) => {
+							frappe.show_alert({
+								message:__(result.message),
+								
+								indicator:'green'
+							}, 5);
+							frm.reload_doc();
+						});
+				},
+
+			)
+		});
+	}
+
+	},
+
 	set_warehouse: function(frm) {
 		let transaction_controller = new erpnext.TransactionController({frm:frm});
 		transaction_controller.autofill_warehouse(frm.doc.items, "warehouse", frm.doc.set_warehouse);
